@@ -6,6 +6,7 @@ import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 
 import Task from "../Task/Task"
 import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
+import AddTaskModal from "../AddTaskModal/AddTaskModal";
 
 export default function TaslList({ activeMenu }) {
 
@@ -28,22 +29,24 @@ export default function TaslList({ activeMenu }) {
   })
 
   const activeBage = ((activeMenu) => {
-    if (activeMenu === 'all') return { text: 'Все Задачи', color: '#457b9d' }
-    if (activeMenu === 'done') return { text: 'Завершено', color: '#2a9d8f' }
-    if (activeMenu === 'work') return { text: 'Сделать', color: '#f4a261' }
+    if (activeMenu === 'all') return { text: 'Все Задачи', color: 'custom.task_all' }
+    if (activeMenu === 'done') return { text: 'Завершено', color: 'custom.task_done' }
+    if (activeMenu === 'work') return { text: 'Сделать', color: 'custom.task_todo' }
   })(activeMenu)
 
   return (
 
     <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
-      <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
-        {/* <Button> */}
+        <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
+        {/* Modal Для всех задач */}
         <AllTaskSettingModal isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />
 
-        {/* </Button> */}
-
       </Flex>
+      <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
+        <AddTaskModal></AddTaskModal>
+      </Flex>
+
       {visibleList.length
         ?
         (visibleList.map((el, ind) => (
@@ -57,6 +60,7 @@ export default function TaslList({ activeMenu }) {
           </InputGroup>
         )
       }
+
     </Box>
 
   )

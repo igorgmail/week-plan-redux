@@ -35,7 +35,9 @@ const AddTaskModal = React.memo(() => {
   return (
     <>
       <Button
-        w={'100%'}
+        w={'3rem'}
+        m={'auto'}
+        variant={'outline'}
         colorScheme='green' size='md'
         onClick={onOpen}
       >
