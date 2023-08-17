@@ -8,7 +8,7 @@ import { AddIcon } from '@chakra-ui/icons'
 
 import textCoctroller from "../../controller/textCoctroller"
 // actions
-import actions from "../../reducers/actionsGenerate"
+import actions from "../../store/reducers/actionsGenerate"
 
 
 const AddTaskModal = React.memo(() => {

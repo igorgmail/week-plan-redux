@@ -4,6 +4,8 @@ import { ColorModeScript } from '@chakra-ui/react'
 
 import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from 'react-redux';
+import store from './store';
 import App from './App';
 import theme from './theme';
 
@@ -13,7 +15,9 @@ root.render(
   <BrowserRouter>
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ChakraProvider>
   </BrowserRouter>
 
