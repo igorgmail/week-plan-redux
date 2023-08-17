@@ -9,7 +9,7 @@ import { Flex, Textarea, Badge } from "@chakra-ui/react"
 import textCoctroller from "../../controller/textCoctroller"
 
 // actions
-import actions from "../../reducers/actionsGenerate"
+import actions from "../../store/reducers/actionsGenerate"
 
 // Buttons
 import SaveButton from "./Buttons/SaveButton"

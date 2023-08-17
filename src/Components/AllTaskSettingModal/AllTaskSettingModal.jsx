@@ -10,7 +10,7 @@ import Context from '../../context/todoContext'
 import CloseButton from "./Button/CloseButton" 
 
 // actions
-import actions from "../../reducers/actionsGenerate"
+import actions from "../../store/reducers/actionsGenerate"
 
 
 const AllTaskSettingModal = React.memo(() => {

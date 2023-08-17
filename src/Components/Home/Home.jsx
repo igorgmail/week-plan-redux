@@ -1,12 +1,13 @@
 import React, { useEffect } from "react"
-import { useState, useReducer, useCallback } from 'react';
+import { useState, useReducer } from 'react';
 
 import Context from '../../context/todoContext'
 
 import Navbar from "../Navbar/Navbar"
 import Menu from "../Menu/Menu"
+import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
-import reducer from '../../reducers/reducer'
+import reducer from '../../store/reducers/taskReducer'
 
 
 export default function Home({ dataTaskList }) {
@@ -24,7 +25,8 @@ export default function Home({ dataTaskList }) {
   //   setAddInputVisible((current) => !current)
   //   isPosibleSpaceDown = !isPosibleSpaceDown
   // }
-  const setActiveMenuHandler = useCallback((value) => {
+
+  const setActiveMenuHandler = (value) => {
     if (value === 'all') {
       setFilterNameState('none'); setActiveMenu('all')
     }
@@ -35,7 +37,7 @@ export default function Home({ dataTaskList }) {
       setFilterNameState('work'); setActiveMenu('work')
     }
 
-  }, [])
+  }
 
   const visibleList = ((filterNameState) => {
     if (filterNameState === 'none') return stateList
@@ -75,6 +77,7 @@ export default function Home({ dataTaskList }) {
 
     <Context.Provider value={{ visibleList, dispatch }}>
       <Navbar />
+      <DayBlock></DayBlock>
       <Menu setActiveMenuHandler={setActiveMenuHandler} />
       <TaslList activeMenu={activeMenu} />
     </Context.Provider>

@@ -7,7 +7,7 @@ import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
 import Context from "../../context/todoContext"
 
 // actions
-import actions from "../../reducers/actionsGenerate"
+import actions from "../../store/reducers/actionsGenerate"
 
 export default function Task({ itemData }) {
   const { dispatch } = useContext(Context)
