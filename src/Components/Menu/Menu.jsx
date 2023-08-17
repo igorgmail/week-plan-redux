@@ -6,7 +6,7 @@ import { Container, Button, Grid, GridItem } from '@chakra-ui/react'
 const Menu = React.memo(({ setActiveMenuHandler }) => {
 
   useEffect(() => {
-    console.log("----Render Menu");
+    console.log("---Render Menu");
   })
 
 
@@ -23,8 +23,6 @@ const Menu = React.memo(({ setActiveMenuHandler }) => {
           </GridItem>
           <GridItem w='100%' h='10'  >
             <Button w={'100%'} backgroundColor={'custom.task_done'} color={'white'} fontSize={['.8rem', '1rem']} size='md' onClick={() => { setActiveMenuHandler('done') }}>Завершенно</Button>
-          </GridItem>
-          <GridItem w={['30%', '100%']} m={'auto'} h='10' rowSpan={1} colSpan={['3', '1']} >
           </GridItem>
         </Grid>
 

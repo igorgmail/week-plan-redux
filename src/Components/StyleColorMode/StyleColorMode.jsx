@@ -37,7 +37,7 @@ export default function StyleColorMode() {
 
   }, [colorMode])
 
-  console.log("----RENDER  colorMode:", colorMode);
+  console.log("---RENDER  colorMode:", colorMode);
 
   localStorage.setItem('wp_colorMode', colorMode);
   return (
