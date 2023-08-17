@@ -10,37 +10,27 @@ import AddTaskModal from "../AddTaskModal/AddTaskModal";
 
 export default function TaslList({ activeMenu }) {
 
-  // const [isAllTaskModalOpen, setIsAllTaskModalOpen] = useState(false);
   const { visibleList } = useContext(Context);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
-
-  useEffect(() => {
-    console.log("----Render TaskList");
-
-  })
-
+  // Стиль(цвет) для bage 
   const activeBage = ((activeMenu) => {
     if (activeMenu === 'all') return { text: 'Все Задачи', color: 'custom.task_all' }
     if (activeMenu === 'done') return { text: 'Завершено', color: 'custom.task_done' }
     if (activeMenu === 'work') return { text: 'Сделать', color: 'custom.task_todo' }
   })(activeMenu)
 
+  useEffect(() => {
+    console.log("---Render TaskList");
+
+  })
   return (
 
     <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
-      <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
+      <Flex alignItems={'center'} justifyContent={'space-between'}>
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
         {/* Modal Для всех задач */}
-        <AllTaskSettingModal isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />
+
+        <AllTaskSettingModal />
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>

@@ -30,7 +30,7 @@ export default function Task({ itemData }) {
     setIsModalOpen(false);
   };
   useEffect(() => {
-    console.log("----Render Task");
+    console.log("---Render Task");
   })
 
   const toogleStatusButton = (e) => {

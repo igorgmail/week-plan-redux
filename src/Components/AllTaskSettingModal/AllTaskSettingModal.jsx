@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState } from "react"
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Button, Flex } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
+import { useDisclosure } from '@chakra-ui/react'
 
 import Context from '../../context/todoContext'
 // Button
@@ -12,51 +13,48 @@ import CloseButton from "./Button/CloseButton"
 import actions from "../../reducers/actionsGenerate"
 
 
-const AllTaskSettingModal = React.memo(({ isModalOpen, openModal, closeModal }) => {
+const AllTaskSettingModal = React.memo(() => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const { dispatch, visibleList } = useContext(Context)
+  // AllDone for modal Все выполненны tru || false не все выполненны
   const [statusAll, setStatusAll] = useState()
-  console.log("▶ ⇛ statusAll:", statusAll);
-  // const { isOpen, onOpen, onClose } = useDisclosure()
 
   const checkAllHandler = (statusCheckAll) => {
     console.log("▶ ⇛ statusCheckAll:", statusCheckAll);
     // Отмечаем все
-    if (statusCheckAll === 'not_all_done') {
+    if (!statusCheckAll) {
       dispatch(actions.checkAllDone(true))
-      closeModal()
+      onClose()
     }
     // Снимаем метки со всех
-    if (statusCheckAll === 'all_done') {
+    if (statusCheckAll) {
       dispatch(actions.checkAllDone(false))
-      closeModal()
+      onClose()
     }
 
 
   }
   const deleteAllHandler = () => {
     console.log("DELETE ALl Handler");
-    closeModal()
+    onClose()
   }
 
   useEffect(() => {
-    console.log("Modal All Task Setting REnder");
+    console.log("---Render Modal All Task Setting");
   })
 
   useEffect(() => {
     const statusAllDoneForModal = !visibleList.some((el) => el.status === 'work')
-    console.log("▶ ⇛ statusAllDoneForModal:", statusAllDoneForModal);
-    setStatusAll((statusAll) => {
-      if (statusAllDoneForModal) return 'all_done'
-      return 'not_all_done'
-    })
+    setStatusAll(statusAllDoneForModal)
   })
 
 
   return (
     <>
-      <SettingsIcon onClick={openModal} cursor={'pointer'} fontSize={'1.3rem'}></SettingsIcon>
+      <SettingsIcon onClick={onOpen} cursor={'pointer'} fontSize={'1.3rem'}></SettingsIcon>
 
-      <Modal onClose={closeModal} isOpen={isModalOpen} isCentered>
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent m={'auto 1rem'}>
           <ModalHeader>Все Задачи</ModalHeader>
@@ -65,14 +63,14 @@ const AllTaskSettingModal = React.memo(({ isModalOpen, openModal, closeModal }) 
 
             <Flex w={'100%'} justifyContent={'space-between'} flexDirection={'column'} gap={4}>
               <Button onClick={() => checkAllHandler(statusAll)} color={'white'} backgroundColor={'#2a9d8f'}>
-                {statusAll === 'all_done' ? ('Отменить Все') : ('Выделить Все')
+                {statusAll ? ('Отменить Все') : ('Выделить Все')
                 }
               </Button>
               <Button onClick={() => deleteAllHandler()} color={'white'} backgroundColor={'#f4a261'}>Удалить все</Button>
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <CloseButton closeModal={closeModal}></CloseButton>
+            <CloseButton closeModal={onClose}></CloseButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

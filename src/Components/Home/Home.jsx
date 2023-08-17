@@ -47,7 +47,7 @@ export default function Home({ dataTaskList }) {
 
   useEffect(() => {
 
-    console.log("----Render Home");
+    console.log("---Render Home");
     localStorage.setItem('wp_day', JSON.stringify(stateList));
 
   })

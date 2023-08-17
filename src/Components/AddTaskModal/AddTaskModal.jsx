@@ -27,7 +27,7 @@ const AddTaskModal = React.memo(() => {
   }
 
   useEffect(() => {
-    console.log("Modal Add Task REnder 1");
+    console.log("---Render Modal Add Task");
   })
 
 
