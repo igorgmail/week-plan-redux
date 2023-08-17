@@ -8,6 +8,13 @@ const theme = extendTheme({
   },
   colors: {
     custom: {
+      navBar: {
+        light: '#52796f'
+      },
+      task_all: '#457b9d',
+      task_todo: '#e07a5f',
+      task_done: '#6c757d',
+      task_add: '#6c757d',
       red: {
         100: "#FFA69E",
       },
@@ -28,6 +35,9 @@ const theme = extendTheme({
     },
   }
 });
+
+// В компоненте задаем
+// backgroundColor={'custom.red.100'}
 
 // // 1. import `extendTheme` function
 // import { extendTheme } from '@chakra-ui/react'
