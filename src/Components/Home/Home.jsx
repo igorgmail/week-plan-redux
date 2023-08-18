@@ -7,14 +7,17 @@ import Menu from "../Menu/Menu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
 
+import { setVisibleTask } from "../../store/reducers/visibleTaskReducer";
 
 export default function Home() {
 
+  console.log("---Render Home");
+
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
+  console.log("▶ ⇛ pageNum:", pageNum);
   let stateList = useSelector((store) => store.tasks)
 
-  console.log("▶ ⇛ stateList:", stateList);
 
   const [filterNameState, setFilterNameState] = useState('none') // Применяем фильтр
   const [activeMenu, setActiveMenu] = useState('all') // Активное меню первоначально Все задачи(all)
@@ -41,13 +44,10 @@ export default function Home() {
   })(filterNameState)
   console.log("▶ ⇛ visibleList:", visibleList);
 
-
   useEffect(() => {
+    localStorage.setItem('wp_today', JSON.stringify(stateList));
 
-    console.log("---Render Home");
-    localStorage.setItem('wp_day', JSON.stringify(stateList));
-
-  })
+  }, [stateList])
 
   return (
 

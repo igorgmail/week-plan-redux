@@ -2,7 +2,8 @@
 import { ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE, UPDATE_ITEM, DELETE_ITEM, CHECK_ALL_DONE } from './boilerplate'
 
 const initState = (() => {
-  const dayDataFromLocal = localStorage.getItem('wp_day');
+
+  const dayDataFromLocal = localStorage.getItem('wp_today');
   let dataTaskList = []
   if (dayDataFromLocal) {
     dataTaskList = JSON.parse(dayDataFromLocal)

@@ -2,7 +2,16 @@
 // const GET_PAGE = 'GET_PAGE'
 const SET_PAGE = 'SET_PAGE'
 
-const initState = { page: 2 }
+const initState = (() => {
+
+  const appDataFromLocal = localStorage.getItem('wp_app');
+  const page = appDataFromLocal?.page
+  if (page) {
+    return { ...appDataFromLocal, page }
+  } else {
+    return { page: 2 }
+  }
+})()
 
 export function setPage(payload) {
   return {
