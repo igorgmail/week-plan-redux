@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react"
 
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // actions
 import actions from "../../store/reducers/actionsGenerate"
 
@@ -24,6 +24,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const pageNum = useSelector((store) => store.app.page)
   const [editorButton, setEditorButton] = useState(false)
   const textareaRef = useRef(null)
   const modalBodyRef = useRef(null)
@@ -44,14 +45,14 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
     const textValue = modalBodyRef.current.querySelector('textarea').value
     const itemIndex = itemDataForModal.index
     if (textCoctroller.isEmpty(textValue)) {
-      dispatch(actions.updatiItem({ itemIndex, textValue }))
+      dispatch(actions.updatiItem(pageNum, { itemIndex, textValue }))
     } else {
       return
     }
   }
 
   const deleteItemHandler = (index) => {
-    dispatch(actions.deleteItem(index))
+    dispatch(actions.deleteItem(pageNum, index))
   }
 
   // Закрывайте модальное окно и предотвращайте переход назад при нажатии кнопки "назад"
