@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux"
 
 
 const AddTaskModal = React.memo(() => {
+
+  const [modalHeight, setModalHeight] = useState(window.innerHeight);
 
   const pageNum = useSelector((store) => store.app.page)
   const dispatch = useDispatch()
@@ -48,7 +50,7 @@ const AddTaskModal = React.memo(() => {
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
         <ModalOverlay />
         <ModalContent m={'auto 1rem'}>
-          <ModalHeader>Добавить Задачу</ModalHeader>
+          <ModalHeader>Добавить Задачу  {modalHeight}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Textarea
