@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { Flex, Heading } from '@chakra-ui/react';
 import StyleColorMode from '../StyleColorMode/StyleColorMode';
 
-export default function Navbar() {
+const Navbar = React.memo(() => {
   const title = useSelector((store) => store.title)
   useEffect(() => {
     console.log("---Render Navbar");
@@ -16,4 +16,6 @@ export default function Navbar() {
       </Heading>
     </Flex>
   )
-}
+})
+
+export default Navbar;

@@ -1,24 +1,27 @@
-import React, { useEffect, useState, useRef, useContext } from "react"
-import { useNavigate } from 'react-router-dom'
-import Context from '../../context/todoContext'
+import React, { useEffect, useState, useRef, useCallback } from "react"
 
-// import { useDisclosure } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+// actions
+import actions from "../../store/reducers/actionsGenerate"
+
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Flex, Textarea, Badge } from "@chakra-ui/react"
 
 import textCoctroller from "../../controller/textCoctroller"
 
-// actions
-import actions from "../../store/reducers/actionsGenerate"
 
 // Buttons
 import SaveButton from "./Buttons/SaveButton"
 import EditButton from "./Buttons/EditButton"
 import DeleteButton from "./Buttons/DeleteButton"
 import CloseButton from "./Buttons/CloseButton"
+
+
 export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
-  // console.log("▶ ⇛ myData:", myData);
-  const { dispatch, visibleList } = useContext(Context)
+  console.log("▶ ⇛ itemDataForModal:", itemDataForModal);
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [editorButton, setEditorButton] = useState(false)
@@ -52,13 +55,13 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
   }
 
   // Закрывайте модальное окно и предотвращайте переход назад при нажатии кнопки "назад"
-  const handlePopstate = (event) => {
+  const handlePopstate = useCallback((event) => {
     if (isModalOpen) {
       closeModalHandler();
     } else {
       navigate(-1);
     }
-  };
+  }, []);
 
   //TODO Для смартфонов закрытие модалки по кнопке назад
 
@@ -71,7 +74,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
     return () => {
       window.removeEventListener('popstate', handlePopstate);
     };
-  }, [isModalOpen, closeModal]);
+  }, [handlePopstate, closeModal]);
 
 
   // Помещаем курсор в конец текста в textarea

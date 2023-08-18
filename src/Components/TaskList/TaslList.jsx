@@ -1,16 +1,15 @@
 import React from "react"
 import { v4 as uuidv4 } from 'uuid'
-import { useEffect, useContext, useState, useCallback } from "react"
-import Context from '../../context/todoContext'
+import { useEffect } from "react"
 import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 
 import Task from "../Task/Task"
 import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 
-export default function TaslList({ activeMenu }) {
+export default function TaslList({ activeMenu, visibleList }) {
 
-  const { visibleList } = useContext(Context);
+  // const { visibleList } = useContext(Context);
 
   // Стиль(цвет) для bage 
   const activeBage = ((activeMenu) => {
@@ -30,7 +29,7 @@ export default function TaslList({ activeMenu }) {
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
         {/* Modal Для всех задач */}
 
-        <AllTaskSettingModal />
+        <AllTaskSettingModal visibleList={visibleList} />
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>

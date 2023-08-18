@@ -1,11 +1,12 @@
-import React, { useEffect, useContext, useState } from "react"
+import React, { useEffect, useState } from "react"
+
+import { useDispatch } from "react-redux"
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Button, Flex } from "@chakra-ui/react"
 import { SettingsIcon } from '@chakra-ui/icons'
 import { useDisclosure } from '@chakra-ui/react'
 
-import Context from '../../context/todoContext'
 // Button
 import CloseButton from "./Button/CloseButton" 
 
@@ -13,15 +14,14 @@ import CloseButton from "./Button/CloseButton"
 import actions from "../../store/reducers/actionsGenerate"
 
 
-const AllTaskSettingModal = React.memo(() => {
+const AllTaskSettingModal = React.memo(({ visibleList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const dispatch = useDispatch()
 
-  const { dispatch, visibleList } = useContext(Context)
   // AllDone for modal Все выполненны tru || false не все выполненны
   const [statusAll, setStatusAll] = useState()
 
   const checkAllHandler = (statusCheckAll) => {
-    console.log("▶ ⇛ statusCheckAll:", statusCheckAll);
     // Отмечаем все
     if (!statusCheckAll) {
       dispatch(actions.checkAllDone(true))
@@ -32,9 +32,8 @@ const AllTaskSettingModal = React.memo(() => {
       dispatch(actions.checkAllDone(false))
       onClose()
     }
-
-
   }
+
   const deleteAllHandler = () => {
     console.log("DELETE ALl Handler");
     onClose()

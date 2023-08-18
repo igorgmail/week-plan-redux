@@ -1,16 +1,16 @@
 import React from "react"
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { Button, Flex, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { CheckIcon } from '@chakra-ui/icons'
 
 import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
-import Context from "../../context/todoContext"
 
 // actions
 import actions from "../../store/reducers/actionsGenerate"
+import { useDispatch } from "react-redux"
 
 export default function Task({ itemData }) {
-  const { dispatch } = useContext(Context)
+  const dispatch = useDispatch()
   const item = itemData[0]
   const index = itemData[1]
 
@@ -61,6 +61,7 @@ export default function Task({ itemData }) {
           readOnly
           defaultValue={item.task}
           cursor={'pointer'}
+          fontSize={'.8rem'}
           fontWeight={'500'}
           textDecoration={item.status === 'done' ? 'line-through' : 'none'}
           backgroundColor={item.status === 'done' ? '#baf3d8' : 'none'}
