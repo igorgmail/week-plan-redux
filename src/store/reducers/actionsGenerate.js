@@ -1,4 +1,7 @@
-import { ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE, UPDATE_ITEM, DELETE_ITEM, CHECK_ALL_DONE } from './boilerplate'
+import {
+  ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE,
+  UPDATE_ITEM, DELETE_ITEM, CHECK_ALL_DONE, DELETE_DAY_ITEMS
+} from './boilerplate'
 
 class Actions {
 
@@ -50,6 +53,13 @@ class Actions {
   deleteItem(pageNum, payload) {
     return {
       type: DELETE_ITEM,
+      pageNum,
+      payload,
+    }
+  }
+  deleteAllItemDay(pageNum, payload) {
+    return {
+      type: DELETE_DAY_ITEMS,
       pageNum,
       payload,
     }

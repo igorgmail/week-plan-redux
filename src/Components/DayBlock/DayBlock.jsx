@@ -7,7 +7,7 @@ import WhatDayBlock from "../WhatDayBlock/WhatDayBlock";
 import { setPage } from "../../store/reducers/appReducer";
 
 
-export default function DayBlock() {
+const DayBlock = React.memo(() => {
   console.log("---Render DayBlock");
 
   const dispatch = useDispatch()
@@ -32,4 +32,6 @@ export default function DayBlock() {
       <WhatDayBlock pageNum={pageNum}></WhatDayBlock>
     </Box>
   )
-}
+})
+
+export default DayBlock

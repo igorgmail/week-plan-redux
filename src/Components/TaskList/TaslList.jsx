@@ -6,10 +6,11 @@ import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 import Task from "../Task/Task"
 import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
+import { useSelector } from "react-redux";
 
 export default function TaslList({ activeMenu, visibleList }) {
   console.log("▶ ⇛ TASLIStvisibleList:", visibleList);
-
+  const pageNum = useSelector((store) => store.app.page)
   // const { visibleList } = useContext(Context);
 
   // Стиль(цвет) для bage 
@@ -29,12 +30,13 @@ export default function TaslList({ activeMenu, visibleList }) {
       <Flex alignItems={'center'} justifyContent={'space-between'}>
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
         {/* Modal Для всех задач */}
-
         <AllTaskSettingModal visibleList={visibleList} />
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
+        {pageNum !== 1 && 
         <AddTaskModal></AddTaskModal>
+        }
       </Flex>
 
       {visibleList.length

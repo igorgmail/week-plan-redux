@@ -95,7 +95,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
     <>
       <Modal onClose={closeModalHandler} isOpen={isModalOpen} isCentered >
         <ModalOverlay />
-        <ModalContent m={'auto 1rem'}>
+        <ModalContent m={'1rem 1rem auto'}>
           <ModalHeader>
             <Badge backgroundColor={itemDataForModal.status === 'done' ? '#2a9d8f' : '#f4a261'}>{itemDataForModal.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
           </ModalHeader>

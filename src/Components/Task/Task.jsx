@@ -65,7 +65,7 @@ export default function Task({ itemData }) {
           fontSize={'.8rem'}
           fontWeight={'500'}
           textDecoration={item.status === 'done' ? 'line-through' : 'none'}
-          backgroundColor={item.status === 'done' ? '#baf3d8' : 'none'}
+          backgroundColor={item.status === 'done' ? '#cce1dc' : 'none'}
         />
         {isModalOpen &&
           <AboutTaskModal itemDataForModal={itemDataForModal} isModalOpen={isModalOpen} closeModal={closeModal} />}

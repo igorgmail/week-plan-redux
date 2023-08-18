@@ -1,5 +1,5 @@
 // boilerPlate
-import { ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE, UPDATE_ITEM, DELETE_ITEM, CHECK_ALL_DONE } from './boilerplate'
+import { ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE, UPDATE_ITEM, DELETE_ITEM, CHECK_ALL_DONE, DELETE_DAY_ITEMS } from './boilerplate'
 import initStateAllTasks from './initStateAllTasks';
 const initState = (() => {
 
@@ -71,6 +71,10 @@ export default function taskReducer(state = initState, action) {
     case DELETE_ITEM:
       const newStateDayArray = [...state[action.pageNum]].filter((el, ind) => ind !== Number(action.payload))
       return { ...state, [action.pageNum]: [...newStateDayArray] }
+
+    case DELETE_DAY_ITEMS:
+      // const stateDayArray = [...state[action.pageNum]].filter((el, ind) => ind !== Number(action.payload))
+      return { ...state, [action.pageNum]: [] }
 
     case CHECK_ALL_DONE:
       if (action.payload) {

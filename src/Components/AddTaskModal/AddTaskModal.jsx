@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux"
 
 const AddTaskModal = React.memo(() => {
 
-  const [modalHeight, setModalHeight] = useState(window.innerHeight);
 
   const pageNum = useSelector((store) => store.app.page)
   const dispatch = useDispatch()
@@ -33,21 +32,6 @@ const AddTaskModal = React.memo(() => {
     console.log("---Render Modal Add Task");
   })
 
-  // Обработчик изменения размера окна
-  const handleResize = () => {
-    setModalHeight(window.innerHeight);
-  };
-
-  useEffect(() => {
-    // Добавление обработчика события при монтировании компонента
-    window.addEventListener('resize', handleResize);
-
-    // Удаление обработчика события при размонтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
     <>
       <Button
@@ -62,8 +46,8 @@ const AddTaskModal = React.memo(() => {
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
         <ModalOverlay />
-        <ModalContent m={'auto 1rem'}>
-          <ModalHeader>Добавить Задачу  {modalHeight}</ModalHeader>
+        <ModalContent m={'1rem 1rem auto'} >
+          <ModalHeader>Добавить Задачу</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Textarea
