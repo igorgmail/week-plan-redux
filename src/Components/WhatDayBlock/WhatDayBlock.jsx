@@ -1,9 +1,8 @@
-import React, { useEffect } from "react"
-import { useState, useReducer } from 'react';
+import React from "react"
 
-import { Flex, Center, Box, InputGroup } from "@chakra-ui/react";
+import { Center, Box } from "@chakra-ui/react";
 
-export default function WhatDayBlock({ whatDay }) {
+export default function WhatDayBlock({ pageNum }) {
   console.log("---Render WhatDayBlock");
 
   const text = (whatDay) => {
@@ -26,9 +25,9 @@ export default function WhatDayBlock({ whatDay }) {
       <Box
         borderRadius={'8px'}
         borderBottom={'2px solid'} borderColor={'custom.navBar.light'}
-        w={['80%', '50%']} textAlign={'center'} mb={'1rem'}>
+        w={['80%', '80%', '60%']} textAlign={'center'} mb={'1rem'}>
 
-        {text(whatDay)}
+        {text(pageNum)}
 
       </Box>
 

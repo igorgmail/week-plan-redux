@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react"
-import Context from '../../context/todoContext'
+import React, { useEffect, useRef, useState } from "react"
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
@@ -9,11 +8,15 @@ import { AddIcon } from '@chakra-ui/icons'
 import textCoctroller from "../../controller/textCoctroller"
 // actions
 import actions from "../../store/reducers/actionsGenerate"
+import { useDispatch, useSelector } from "react-redux"
 
 
 const AddTaskModal = React.memo(() => {
 
-  const { dispatch } = useContext(Context)
+  const [modalHeight, setModalHeight] = useState(window.innerHeight);
+
+  const pageNum = useSelector((store) => store.app.page)
+  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const modalTextareaRef = useRef(null)
 
@@ -21,7 +24,7 @@ const AddTaskModal = React.memo(() => {
     const textTask = modalTextareaRef.current.value
 
     if (textCoctroller.isEmpty(textTask)) {
-      dispatch(actions.addTask(textTask))
+      dispatch(actions.addTask(pageNum, textTask))
       onClose()
     } else return
   }
@@ -47,7 +50,7 @@ const AddTaskModal = React.memo(() => {
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
         <ModalOverlay />
         <ModalContent m={'auto 1rem'}>
-          <ModalHeader>Добавить Задачу</ModalHeader>
+          <ModalHeader>Добавить Задачу  {modalHeight}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Textarea

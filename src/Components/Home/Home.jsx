@@ -1,32 +1,32 @@
-import React, { useEffect } from "react"
-import { useState, useReducer } from 'react';
-
-import Context from '../../context/todoContext'
+import React, { useCallback, useEffect } from "react"
+import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "../Navbar/Navbar"
 import Menu from "../Menu/Menu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
-import reducer from '../../store/reducers/taskReducer'
+
+import { setVisibleTask } from "../../store/reducers/visibleTaskReducer";
+
+export default function Home() {
+
+  console.log("---Render Home");
+
+  const dispatch = useDispatch()
+  const pageNum = useSelector((store) => store.app.page)
+  console.log("▶ ⇛ pageNum:", pageNum);
+  // Все задачи обьект в ключах массив обьектов с задачами {1: [Прошлое], 2:[Сегодня], 3:[Завтра], 4: [Неделя] }
+  let stateFromReducer = useSelector((store) => store.tasks)
+  console.log("▶ ⇛ stateFromReducer:", stateFromReducer);
+  let stateList = stateFromReducer[pageNum]
+  console.log("▶ ⇛ stateList:", stateList);
 
 
-export default function Home({ dataTaskList }) {
+  const [filterNameState, setFilterNameState] = useState('none') // Применяем фильтр
+  const [activeMenu, setActiveMenu] = useState('all') // Активное меню первоначально Все задачи(all)
 
-  // const [addInputVisible, setAddInputVisible] = useState(false)
-
-  const [stateList, dispatch] = useReducer(reducer, dataTaskList)
-
-  const [filterNameState, setFilterNameState] = useState('none')
-  const [activeMenu, setActiveMenu] = useState('all')
-
-  // let isPosibleSpaceDown = useRef(true) // Для Отслеживаения нажатия пробел
-
-  // const showInputHandler = () => {
-  //   setAddInputVisible((current) => !current)
-  //   isPosibleSpaceDown = !isPosibleSpaceDown
-  // }
-
-  const setActiveMenuHandler = (value) => {
+  const setActiveMenuHandler = useCallback((value) => {
     if (value === 'all') {
       setFilterNameState('none'); setActiveMenu('all')
     }
@@ -36,9 +36,11 @@ export default function Home({ dataTaskList }) {
     if (value === 'work') {
       setFilterNameState('work'); setActiveMenu('work')
     }
+  }, [])
 
-  }
 
+  // При каждом перерендере компонента(При каждом изменении фильтра(Выборе меню))
+  // Формируется копия оригинального state отфильтрованная с применением фильтра
   const visibleList = ((filterNameState) => {
     if (filterNameState === 'none') return stateList
     if (filterNameState === 'done') return stateList.filter((el) => el.status === 'done')
@@ -46,41 +48,20 @@ export default function Home({ dataTaskList }) {
   })(filterNameState)
   console.log("▶ ⇛ visibleList:", visibleList);
 
-
   useEffect(() => {
+    localStorage.setItem('wp_tasks', JSON.stringify(stateFromReducer));
 
-    console.log("---Render Home");
-    localStorage.setItem('wp_day', JSON.stringify(stateList));
-
-  })
-
-  // // Слушатель нажатия пробела
-  // useEffect(() => {
-
-  //   const handleKeyPress = (event) => {
-  //     if (event.key === ' ' && event.ctrlKey && event.target.tagName !== 'textarea') {
-  //       console.log("▶ ⇛ isPosibleSpaceDown:", isPosibleSpaceDown);
-  //       if (addInputVisible) return
-  //       // Выполните вашу функцию здесь
-  //       console.log('Пробел нажат');
-  //     }
-  //   };
-
-  //   document.addEventListener('keydown', handleKeyPress);
-
-  //   return () => {
-  //     document.removeEventListener('keydown', handleKeyPress);
-  //   };
-  // }, []);
+  }, [stateFromReducer])
 
   return (
 
-    <Context.Provider value={{ visibleList, dispatch }}>
+    <>
       <Navbar />
       <DayBlock></DayBlock>
       <Menu setActiveMenuHandler={setActiveMenuHandler} />
-      <TaslList activeMenu={activeMenu} />
-    </Context.Provider>
+      <TaslList activeMenu={activeMenu} visibleList={visibleList} />
+    </>
+
 
   )
 }
