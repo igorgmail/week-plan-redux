@@ -33,7 +33,20 @@ const AddTaskModal = React.memo(() => {
     console.log("---Render Modal Add Task");
   })
 
+  // Обработчик изменения размера окна
+  const handleResize = () => {
+    setModalHeight(window.innerHeight);
+  };
 
+  useEffect(() => {
+    // Добавление обработчика события при монтировании компонента
+    window.addEventListener('resize', handleResize);
+
+    // Удаление обработчика события при размонтировании компонента
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>

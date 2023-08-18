@@ -11,6 +11,21 @@ const Navbar = React.memo(() => {
   useEffect(() => {
     console.log("---Render Navbar");
   })
+  // Обработчик изменения размера окна
+  const handleResize = () => {
+    setModalHeight(window.innerHeight);
+  };
+
+  useEffect(() => {
+    // Добавление обработчика события при монтировании компонента
+    window.addEventListener('resize', handleResize);
+
+    // Удаление обработчика события при размонтировании компонента
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <Flex w='100%' h='3rem' p={'.5rem'} backgroundColor={'custom.navBar.light'} mb={['1rem', '2rem']} justifyContent={'space-between'} alignItems={'center'}>
       <StyleColorMode></StyleColorMode>
