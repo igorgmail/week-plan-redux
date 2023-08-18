@@ -10,12 +10,12 @@ const initState = (() => {
     dataTaskList = [{
       task: 'Это первая тестовая задача',
       status: 'done',
-      dataEnd: new Date(),
+      dataAdd: new Date(),
     },
       {
         task: 'Это Вторая тестовая задача',
         status: '',
-        dataEnd: new Date(),
+        dataAdd: new Date(),
       },
     ]
   }
