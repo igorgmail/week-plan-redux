@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react"
-import Context from '../../context/todoContext'
+import React, { useEffect, useRef } from "react"
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
@@ -9,11 +8,12 @@ import { AddIcon } from '@chakra-ui/icons'
 import textCoctroller from "../../controller/textCoctroller"
 // actions
 import actions from "../../store/reducers/actionsGenerate"
+import { useDispatch } from "react-redux"
 
 
 const AddTaskModal = React.memo(() => {
 
-  const { dispatch } = useContext(Context)
+  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const modalTextareaRef = useRef(null)
 

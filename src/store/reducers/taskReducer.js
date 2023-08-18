@@ -11,7 +11,13 @@ const initState = (() => {
       task: 'Это первая тестовая задача',
       status: 'done',
       dataEnd: new Date(),
-    }]
+    },
+      {
+        task: 'Это Вторая тестовая задача',
+        status: '',
+        dataEnd: new Date(),
+      },
+    ]
   }
   return dataTaskList
 })()
