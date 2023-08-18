@@ -8,6 +8,7 @@ import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 
 export default function TaslList({ activeMenu, visibleList }) {
+  console.log("▶ ⇛ TASLIStvisibleList:", visibleList);
 
   // const { visibleList } = useContext(Context);
 

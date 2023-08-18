@@ -2,54 +2,62 @@ import { ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE, UP
 
 class Actions {
 
-  addTask(payload) {
+  addTask(pageNum, payload) {
     return {
       type: ADDTASK,
-      payload
+      pageNum,
+      payload, //: { pageNum, textTask }
     }
   }
-  toogleStatus(payload) {
+  toogleStatus(pageNum, payload) {
     return {
       type: TOGGLE_STATUS,
+      pageNum,
       payload,
     }
   }
-  sortByDone(payload) {
+  sortByDone(pageNum) {
     return {
       type: SORT_BY_DONE,
-      payload,
+      pageNum,
+
     }
   }
-  filterByAll(payload) {
+  filterByAll(pageNum, payload) {
     return {
       type: FILTER_BY_All,
+      pageNum,
       payload,
     }
   }
-  filterByDone(payload) {
+  filterByDone(pageNum, payload) {
     return {
       type: FILTER_BY_DONE,
+      pageNum,
       payload,
     }
   }
-  updatiItem(payload) {
+  updatiItem(pageNum, payload) {
     return {
       type: UPDATE_ITEM,
+      pageNum,
       payload: {
         index: payload.itemIndex,
         value: payload.textValue
       }
     }
   }
-  deleteItem(payload) {
+  deleteItem(pageNum, payload) {
     return {
       type: DELETE_ITEM,
+      pageNum,
       payload,
     }
   }
-  checkAllDone(payload) {
+  checkAllDone(pageNum, payload) {
     return {
       type: CHECK_ALL_DONE,
+      pageNum,
       payload,
     }
   }

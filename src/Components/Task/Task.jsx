@@ -7,10 +7,11 @@ import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
 
 // actions
 import actions from "../../store/reducers/actionsGenerate"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 export default function Task({ itemData }) {
   const dispatch = useDispatch()
+  const pageNum = useSelector((store) => store.app.page)
   const item = itemData[0]
   const index = itemData[1]
 
@@ -35,8 +36,8 @@ export default function Task({ itemData }) {
 
   const toogleStatusButton = (e) => {
     const dataItem = e.target.closest('.task-input').dataset.itemIndex
-    dispatch(actions.toogleStatus(dataItem))
-    dispatch(actions.sortByDone())
+    dispatch(actions.toogleStatus(pageNum, dataItem))
+    dispatch(actions.sortByDone(pageNum))
   }
 
   return (

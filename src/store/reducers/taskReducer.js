@@ -1,29 +1,21 @@
 // boilerPlate
 import { ADDTASK, TOGGLE_STATUS, SORT_BY_DONE, FILTER_BY_All, FILTER_BY_DONE, UPDATE_ITEM, DELETE_ITEM, CHECK_ALL_DONE } from './boilerplate'
-
+import initStateAllTasks from './initStateAllTasks';
 const initState = (() => {
 
-  const dayDataFromLocal = localStorage.getItem('wp_today');
-  let dataTaskList = []
+  const dayDataFromLocal = localStorage.getItem('wp_tasks');
+  let dataTaskList;
   if (dayDataFromLocal) {
     dataTaskList = JSON.parse(dayDataFromLocal)
+    console.log("▶ ⇛ dataTaskList:", dataTaskList);
   } else {
-    dataTaskList = [{
-      task: 'Это первая тестовая задача',
-      status: 'done',
-      dataAdd: new Date(),
-    },
-      {
-        task: 'Это Вторая тестовая задача',
-        status: '',
-        dataAdd: new Date(),
-      },
-    ]
+    dataTaskList = initStateAllTasks
   }
   return dataTaskList
 })()
 
 export default function taskReducer(state = initState, action) {
+
 
   switch (action.type) {
     case ADDTASK:
@@ -32,10 +24,11 @@ export default function taskReducer(state = initState, action) {
         status: 'work',
         dataEnd: Date.now()
       }
-      return [newTask, ...state]
+      return { ...state, [action.pageNum]: [{ ...newTask }, ...state[action.pageNum]], }
 
     case TOGGLE_STATUS:
-      const newState = state.map((el, ind) => {
+
+      const newState = state[action.pageNum].map((el, ind) => {
         if (ind === Number(action.payload)) {
           if (el.status === 'done') {
             return { ...el, status: 'work' };
@@ -46,10 +39,10 @@ export default function taskReducer(state = initState, action) {
         return el
       })
 
-      return newState
+      return { ...state, [action.pageNum]: [...newState], }
 
     case SORT_BY_DONE:
-      const sortedArray = [...state].sort((a, b) => {
+      const sortedArray = [...state[action.pageNum]].sort((a, b) => {
         if (a.status === 'done' && b.status !== 'done') {
           return 1; // a должно идти после b
         }
@@ -58,36 +51,39 @@ export default function taskReducer(state = initState, action) {
         }
         return 0; // порядок a и b остается неизменным
       });
-      return sortedArray
+      return { ...state, [action.pageNum]: [...sortedArray], } 
 
-    case FILTER_BY_All:
-      return [...state]
+    // case FILTER_BY_All:
+    //   return [...state]
 
-    case FILTER_BY_DONE:
-      return [...state].filter((el) => el.status === 'done')
+    // case FILTER_BY_DONE:
+    //   return [...state].filter((el) => el.status === 'done')
 
     case UPDATE_ITEM:
-      return [...state].map((el, ind) => {
+      const updateDayArray = [...state[action.pageNum]].map((el, ind) => {
         if (ind === Number(action.payload.index)) {
           return { ...el, task: action.payload.value }
         }
         return el
       })
+      return { ...state, [action.pageNum]: [...updateDayArray] }
 
     case DELETE_ITEM:
-      return [...state].filter((el, ind) => ind !== Number(action.payload))
+      const newStateDayArray = [...state[action.pageNum]].filter((el, ind) => ind !== Number(action.payload))
+      return { ...state, [action.pageNum]: [...newStateDayArray] }
 
     case CHECK_ALL_DONE:
       if (action.payload) {
-        console.log("▶ ⇛ state:", state);
-        return [...state].map((el) => { el.status = 'done'; return el })
+        const allDone = [...state[action.pageNum]].map((el) => { el.status = 'done'; return el })
+        return { ...state, [action.pageNum]: [...allDone] }
       } else {
-        return [...state].map((el) => { el.status = 'work'; return el })
+        const allWork = [...state[action.pageNum]].map((el) => { el.status = 'work'; return el })
+        return { ...state, [action.pageNum]: [...allWork] }
       }
 
 
     default:
-      return [...state]
+      return { ...state }
   }
 
 }

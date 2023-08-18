@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Button, Flex } from "@chakra-ui/react"
@@ -17,19 +17,19 @@ import actions from "../../store/reducers/actionsGenerate"
 const AllTaskSettingModal = React.memo(({ visibleList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
-
+  const pageNum = useSelector((store) => store.app.page)
   // AllDone for modal Все выполненны tru || false не все выполненны
   const [statusAll, setStatusAll] = useState()
 
   const checkAllHandler = (statusCheckAll) => {
     // Отмечаем все
     if (!statusCheckAll) {
-      dispatch(actions.checkAllDone(true))
+      dispatch(actions.checkAllDone(pageNum, true))
       onClose()
     }
     // Снимаем метки со всех
     if (statusCheckAll) {
-      dispatch(actions.checkAllDone(false))
+      dispatch(actions.checkAllDone(pageNum, false))
       onClose()
     }
   }
