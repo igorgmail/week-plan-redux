@@ -25,7 +25,7 @@ export default function WhatDayBlock({ pageNum }) {
       <Box
         borderRadius={'8px'}
         borderBottom={'2px solid'} borderColor={'custom.navBar.light'}
-        w={['80%', '50%']} textAlign={'center'} mb={'1rem'}>
+        w={['80%', '80%', '60%']} textAlign={'center'} mb={'1rem'}>
 
         {text(pageNum)}
 

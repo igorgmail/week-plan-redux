@@ -25,19 +25,19 @@ const Menu = React.memo(({ setActiveMenuHandler }) => {
             <Button
               transform={activeMenu === 1 && 'translateY(-10px)'}
               w={'100%'} backgroundColor={'custom.task_done'} color={'white'} fontSize={['.8rem', '1rem']} size='md'
-              onClick={() => { setActiveMenu(1) }}>Завершенно</Button>
+              onClick={() => menuToogleHandler(1)}>Завершенно</Button>
           </GridItem>
           <GridItem w='100%' h='10' rowSpan={1} >
             <Button
               transform={activeMenu === 2 && 'translateY(-10px)'}
               w={'100%'} backgroundColor={'custom.task_all'} color={'white'} fontSize={['.8rem', '1rem']}
-              onClick={() => setActiveMenu(2)}>Все задачи</Button>
+              onClick={() => menuToogleHandler(2)}>Все задачи</Button>
           </GridItem>
           <GridItem w='100%' h='10'  >
             <Button
               transform={activeMenu === 3 && 'translateY(-10px)'}
               w={'100%'} backgroundColor={'custom.task_todo'} color={'white'} fontSize={['.8rem', '1rem']} size='md'
-              onClick={() => { setActiveMenu(3) }}>Сделать</Button>
+              onClick={() => menuToogleHandler(3)}>Сделать</Button>
           </GridItem>
 
         </Grid>
