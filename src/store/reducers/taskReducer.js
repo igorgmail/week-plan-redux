@@ -7,7 +7,6 @@ const initState = (() => {
   let dataTaskList;
   if (dayDataFromLocal) {
     dataTaskList = JSON.parse(dayDataFromLocal)
-    console.log("▶ ⇛ dataTaskList:", dataTaskList);
   } else {
     dataTaskList = initStateAllTasks
   }

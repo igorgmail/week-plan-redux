@@ -7,7 +7,7 @@ import visibleReducer from './reducers/visibleTaskReducer'
 // Если один reducer
 // const store = createStore(reducer)
 const rootReducer = combineReducers({
-  taskDay: () => localStorage.getItem('wp_today'),
+  // taskDay: () => localStorage.getItem('wp_today'),
   tasks: taskReducer,
   visible: visibleReducer,
 

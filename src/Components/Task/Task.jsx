@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { Button, Flex, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Button, Flex, InputGroup, Text } from "@chakra-ui/react"
 import { CheckIcon } from '@chakra-ui/icons'
 
 import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
@@ -21,7 +21,7 @@ export default function Task({ itemData }) {
   const openModal = (e) => {
     const itemIndex = e.target.dataset.itemIndex;
     const itemStatus = e.target.dataset.itemStatus;
-    const itemText = e.target.value
+    const itemText = e.target.innerText
     const newData = { text: itemText, index: itemIndex, status: itemStatus };
     setItemDataForModal(newData);
     setIsModalOpen(true);
@@ -44,7 +44,8 @@ export default function Task({ itemData }) {
     <Flex
       className={"task-input"}
       data-item-index={index}
-      flexDirection={['column', 'column', 'row']} justifyContent={'center'} alignItems={'center'} w={'100%'} gap={'8px'} mb={'10px'}
+      flexDirection={['column', 'column', 'row']}
+      justifyContent={'space-beetween'} alignItems={'center'} w={'100%'} gap={'8px'} mb={'10px'}
     >
 
       <InputGroup
@@ -52,29 +53,32 @@ export default function Task({ itemData }) {
           m={'auto'}
           border='2px' borderColor='gray.400'
           borderRadius={'8px'}
+        backgroundColor={item.status === 'done' ? '#cce1dc' : 'none'}
         >
 
-        <Input
-          // as={'div'}
+        <Text
+          overflow={'hidden'} whiteSpace={'nowrap'} textOverflow={'ellipsis'}
+          margin={'auto'}
+          pl={['0.5rem', '1rem']}
+          w={'100%'}
           data-item-index={index}
           data-item-status={item.status}
           onClick={openModal}
-          readOnly
-          defaultValue={item.task}
           cursor={'pointer'}
-          fontSize={'.8rem'}
+          fontSize={['.8rem', '1rem']}
           fontWeight={'500'}
           textDecoration={item.status === 'done' ? 'line-through' : 'none'}
-          backgroundColor={item.status === 'done' ? '#cce1dc' : 'none'}
-        />
+        >{item.task}</Text>
+
         {isModalOpen &&
           <AboutTaskModal itemDataForModal={itemDataForModal} isModalOpen={isModalOpen} closeModal={closeModal} />}
 
-        <InputRightElement>
-          <Button onClick={toogleStatusButton} variant={'outline'} borderColor={'rgb(160, 174, 192)'}>
-            <CheckIcon fontSize={'1.2rem'} color={item.status === 'done' ? 'green.500' : ''} />
-          </Button>
-        </InputRightElement>
+        <Button onClick={toogleStatusButton}
+          p={['0.5rem', '1rem']}
+          variant={'outline'}
+          borderColor={'rgb(160, 174, 192)'}>
+          <CheckIcon color={item.status === 'done' ? 'green.500' : ''} />
+        </Button>
       </InputGroup>
 
 
