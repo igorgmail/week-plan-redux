@@ -2,19 +2,42 @@ import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
 
+  styles: {
+    global: (props) => ({
+      'html, body': {
+        fontSize: 'sm',
+        backgroundColor: props.colorMode === 'dark' ? '#393939' : 'white',
+        lineHeight: 'tall',
+      },
+    }),
+  },
+
   fonts: {
     body: 'Roboto, sans-serif',
     heading: 'Roboto, sans-serif',
   },
   colors: {
+    light: {
+      taskDoneBg: '#cce1dc',
+      navBar: '#52796f'
+    },
+    dark: {
+      taskDoneBg: '#78a297',
+      navBar: '#334c46'
+    },
+
     custom: {
-      navBar: {
-        light: '#52796f'
-      },
+
+      // Использую
+      // фон выполненной задачи
+      taskDoneBg: '#cce1dc',
+      // Кнопки menu
       task_all: '#457b9d',
       task_todo: '#e07a5f',
       task_done: '#6c757d',
-      task_add: '#6c757d',
+      // Неизвестно
+
+      // task_add: '#6c757d',
       red: {
         100: "#FFA69E",
       },
