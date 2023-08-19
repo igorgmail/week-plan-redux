@@ -1,5 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
+
+import { useColorModeValue } from "@chakra-ui/react";
 import { Button, Flex, InputGroup, Text } from "@chakra-ui/react"
 import { CheckIcon } from '@chakra-ui/icons'
 
@@ -10,6 +12,10 @@ import actions from "../../store/reducers/actionsGenerate"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Task({ itemData }) {
+
+  const taskDoneBg = useColorModeValue("light.taskDoneBg", "dark.taskDoneBg");
+  console.log("▶ ⇛ taskDoneBg:", taskDoneBg);
+
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
   const item = itemData[0]
@@ -53,7 +59,8 @@ export default function Task({ itemData }) {
           m={'auto'}
           border='2px' borderColor='gray.400'
           borderRadius={'8px'}
-        backgroundColor={item.status === 'done' ? '#cce1dc' : 'none'}
+        // backgroundColor={taskDoneBg}
+        backgroundColor={item.status === 'done' ? taskDoneBg : 'none'}
         >
 
         <Text

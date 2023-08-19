@@ -7,7 +7,6 @@ import Menu from "../Menu/Menu"
 import DayBlock from "../DayBlock/DayBlock"
 import TaslList from "../TaskList/TaslList"
 
-import { setVisibleTask } from "../../store/reducers/visibleTaskReducer";
 
 export default function Home() {
 
@@ -15,12 +14,9 @@ export default function Home() {
 
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
-  console.log("▶ ⇛ pageNum:", pageNum);
   // Все задачи обьект в ключах массив обьектов с задачами {1: [Прошлое], 2:[Сегодня], 3:[Завтра], 4: [Неделя] }
   let stateFromReducer = useSelector((store) => store.tasks)
-  console.log("▶ ⇛ stateFromReducer:", stateFromReducer);
   let stateList = stateFromReducer[pageNum]
-  console.log("▶ ⇛ stateList:", stateList);
 
 
   const [filterNameState, setFilterNameState] = useState('none') // Применяем фильтр
