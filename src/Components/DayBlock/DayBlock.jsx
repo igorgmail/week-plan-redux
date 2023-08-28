@@ -4,19 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Flex, Button, Box } from "@chakra-ui/react";
 import WhatDayBlock from "../WhatDayBlock/WhatDayBlock";
-import { setPage } from "../../store/reducers/appReducer";
+import { setPage, setMenu } from "../../store/reducers/appReducer";
 
 
 const DayBlock = React.memo(() => {
   console.log("---Render DayBlock");
 
   const dispatch = useDispatch()
-  const pageNum = useSelector((store) => store.app.page)
+  const pageNum = useSelector((store) => store.app.page) // Сегодня Завтра Неделя
 
   const font = ['0.8rem', '1rem']
 
   const chooseDayHandler = (day) => {
+    // setActiveMenuHandler('all')
     dispatch(setPage(day))
+    // при переходе на новую вкладку обновляем menu на "все задачи"
+    dispatch(setMenu('all'))
   }
 
   return (

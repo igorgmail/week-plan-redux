@@ -16,7 +16,6 @@ import actions from "../../store/reducers/actionsGenerate"
 
 
 const AllTaskSettingModal = React.memo(({ visibleList }) => {
-
   console.log("---Render Modal All Task Setting");
 
 
@@ -63,6 +62,7 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
   useEffect(() => {
     const statusAllDoneForModal = !visibleList.some((el) => el.status === 'work')
     setStatusAll(statusAllDoneForModal)
+
   }, [visibleList])
 
   useEffect(() => {
@@ -94,7 +94,9 @@ const AllTaskSettingModal = React.memo(({ visibleList }) => {
           </ModalBody>
 
           <ModalFooter>
+            {showAlert ? <></> :
             <CloseButton closeModal={onClose}></CloseButton>
+            }
           </ModalFooter>
 
         </ModalContent>

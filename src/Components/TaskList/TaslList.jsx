@@ -1,6 +1,6 @@
 import React from "react"
 import { v4 as uuidv4 } from 'uuid'
-import { useEffect } from "react"
+import { useMemo } from "react"
 import { Box, Input, InputGroup, Badge, Flex } from "@chakra-ui/react";
 
 import Task from "../Task/Task"
@@ -9,10 +9,10 @@ import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { useSelector } from "react-redux";
 
 export default function TaslList({ activeMenu, visibleList }) {
-  console.log("▶ ⇛ TASLIStvisibleList:", visibleList);
-  const pageNum = useSelector((store) => store.app.page)
-  // const { visibleList } = useContext(Context);
+  console.log("---Render TaskList");
 
+  const pageNum = useSelector((store) => store.app.page)
+  const visibleListMemo = useMemo(() => visibleList, [visibleList])
   // Стиль(цвет) для bage 
   const activeBage = ((activeMenu) => {
     if (activeMenu === 'all') return { text: 'Все Задачи', color: 'custom.task_all' }
@@ -20,17 +20,14 @@ export default function TaslList({ activeMenu, visibleList }) {
     if (activeMenu === 'work') return { text: 'Сделать', color: 'custom.task_todo' }
   })(activeMenu)
 
-  useEffect(() => {
-    console.log("---Render TaskList");
-
-  })
   return (
 
     <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
       <Flex alignItems={'center'} justifyContent={'space-between'}>
         <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
         {/* Modal Для всех задач */}
-        <AllTaskSettingModal visibleList={visibleList} />
+
+        <AllTaskSettingModal visibleList={visibleListMemo} />
 
       </Flex>
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>

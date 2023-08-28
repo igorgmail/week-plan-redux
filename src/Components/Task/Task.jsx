@@ -12,9 +12,8 @@ import actions from "../../store/reducers/actionsGenerate"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Task({ itemData }) {
-
+  console.log("---Render Task");
   const taskDoneBg = useColorModeValue("light.taskDoneBg", "dark.taskDoneBg");
-  console.log("▶ ⇛ taskDoneBg:", taskDoneBg);
 
   const dispatch = useDispatch()
   const pageNum = useSelector((store) => store.app.page)
@@ -37,7 +36,7 @@ export default function Task({ itemData }) {
     setIsModalOpen(false);
   };
   useEffect(() => {
-    console.log("---Render Task");
+
   })
 
   const toogleStatusButton = (e) => {
