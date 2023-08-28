@@ -10,7 +10,6 @@ import hasTouchScreen from '../../controller/isMobileController'
 
 export default function Home() {
   console.log("---Render Home");
-  console.log("▶ ⇛ hasTouchScreen:", hasTouchScreen);
 
   const pageNum = useSelector((store) => store.app.page)
 
@@ -30,7 +29,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar hasTouchScreen={hasTouchScreen} />
+      <Navbar />
       <DayBlock></DayBlock>
       <Menu />
       <TaslList activeMenu={activeMenu} visibleList={visibleList} />
